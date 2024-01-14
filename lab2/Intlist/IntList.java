@@ -5,7 +5,7 @@ import java.util.Formatter;
  * with a large number of additional methods.
  *
  * @author P. N. Hilfinger, with some modifications by Josh Hug and melaniecebula
- *         [Do not modify this file.]
+ * [Do not modify this file.]
  */
 public class IntList {
     /**
@@ -29,7 +29,7 @@ public class IntList {
      * A List with null rest, and first = 0.
      */
     public IntList() {
-    /* NOTE: public IntList () { }  would also work. */
+        /* NOTE: public IntList () { }  would also work. */
         this(0, null);
     }
 
@@ -81,8 +81,24 @@ public class IntList {
      */
 
     public static IntList dcatenate(IntList A, IntList B) {
+        if (A == null) {
+            A = B;
+            return A;
+        } else if (B == null) {
+            return A;
+        }
+        IntList pB = B;
+        IntList pA=A;
+        while (pA.rest != null) {
+            pA = pA.rest;
+        }
+        while (pB != null) {
+            pA.rest=new IntList(pB.first,null);
+            pB=pB.rest;
+            pA=pA.rest;
+        }
+        return A;
         //TODO:  fill in method
-        return null;
     }
 
     /**
@@ -90,23 +106,35 @@ public class IntList {
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     public static IntList catenate(IntList A, IntList B) {
+        IntList res,ptr;
+        if (A == null || B== null ) {
+            if(A==null&&B==null) return null;
+            if(B==null) B=A;
+            res=new IntList(B.first,null);
+            ptr=res;
+            B=B.rest;
+            while(B!=null){
+                ptr.rest=new IntList(B.first,null);
+                B=B.rest;
+                ptr=ptr.rest;
+            }
+            return res;
+        }
+        res=new IntList(A.first,null);
+        ptr=res;
+        A=A.rest;
+        while(A!=null){
+            ptr.rest=new IntList(A.first,null);
+            A=A.rest;
+            ptr=ptr.rest;
+        }
+        while(B!=null){
+            ptr.rest=new IntList(B.first,null);
+            B=B.rest;ptr=ptr.rest;
+        }
+        return res;
         //TODO:  fill in method
-        return null;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**
